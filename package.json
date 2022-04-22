@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Acampbell8610/acampbell-social-network-nosql/issues"
   },
-  "homepage": "https://github.com/Acampbell8610/acampbell-social-network-nosql#readme"
+  "homepage": "https://github.com/Acampbell8610/acampbell-social-network-nosql#readme",
+  "dependencies": {
+    "mongoose": "^6.3.1"
+  }
 }
