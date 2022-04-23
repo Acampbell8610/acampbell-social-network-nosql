@@ -8,12 +8,12 @@ const ReactionSchema = new Schema({
       },
       reactionBody: {
           type: 'string',
-          require: true,
+          required: true,
           maxLength:280,
       },
       username:{
           type: 'string',
-          require: true,
+          required: true,
       },
       createdAt:{
           type:Date,
@@ -26,7 +26,7 @@ const ReactionSchema = new Schema({
         getters:true
     }
 }
-)
+);
 
 const ThoughtSchema = new Schema({
     thoughtText: {
@@ -40,8 +40,8 @@ const ThoughtSchema = new Schema({
         get:createdAtVal => dateFormat(createdAtVal),
     },
     username: {
-        Type: 'string',
-        require: true,
+        type: 'string',
+        required: true,
     },
     reactions: [ReactionSchema]
 },{
@@ -53,7 +53,7 @@ const ThoughtSchema = new Schema({
 });
 
 //create a virtual 
-ThoughtSchema.virtuals('reactionCount').get(function(){
+ThoughtSchema.virtual('reactionCount').get(function(){
     return this.reactions.length;
 });
 

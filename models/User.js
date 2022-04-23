@@ -1,16 +1,16 @@
-const {Schema, model, Types} = require('mongoose');
+const {Schema, model} = require('mongoose');
 
 
 const UserSchema = new Schema({
     username: {
         type: 'string',
         unique: true,
-        require:true,
+        required: true,
         trim: true,
 },
     email: {
         type: 'string',
-        require:true,
+        required:true,
         unique: true,
         match: [/.+\@.+\..+/],
     },
