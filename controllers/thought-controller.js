@@ -4,12 +4,7 @@ const thoughtController = {
 
   getAllThought(req, res) {
     Thought.find({})
-    .populate({
-        path: 'users',
-        select: '-_v'
-    })
-    .select('-_v')
-    .sort({_id: -1})
+
 
       .then(dbthoughtData => res.json(dbthoughtData))
       .catch(err => {
@@ -20,10 +15,7 @@ const thoughtController = {
     // get one thought by id
     getThoughtById({ params }, res) {
       Thought.findOne({ _id: params.id })
-      .populate({
-          path: 'users',
-          select: '-_v'
-      })
+ 
       .select('-_v')
         .then(dbthoughtData => {
           // If no user is found, send 404
