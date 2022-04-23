@@ -1,6 +1,55 @@
 const { Thought, User } = require('../models');
 
 const thoughtController = {
+
+  getAllThought(req, res) {
+    Thought.find({})
+    .populate({
+        path: 'users',
+        select: '-_v'
+    })
+    .select('-_v')
+    .sort({_id: -1})
+
+      .then(dbthoughtData => res.json(dbthoughtData))
+      .catch(err => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  },
+    // get one thought by id
+    getThoughtById({ params }, res) {
+      Thought.findOne({ _id: params.id })
+      .populate({
+          path: 'users',
+          select: '-_v'
+      })
+      .select('-_v')
+        .then(dbthoughtData => {
+          // If no user is found, send 404
+          if (!dbthoughtData) {
+            res.status(404).json({ message: 'No thought found with this id!' });
+            return;
+          }
+          res.json(dbthoughtData);
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(400).json(err);
+        });
+    },
+      // update thought by id
+updateThought({ params, body }, res) {
+  Thought.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
+    .then(dbThoughtData => {
+      if (!dbThoughtData) {
+        res.status(404).json({ message: 'No Thought found with this id!' });
+        return;
+      }
+      res.json(dbThoughtData);
+    })
+    .catch(err => res.status(400).json(err));
+},
     // add thought to users
     addThought({ params, body }, res) {
      console.log(body);
@@ -25,7 +74,7 @@ const thoughtController = {
    addReaction({ params, body }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
-      { $push: { replies: body } },
+      { $push: { reactions: body } },
       { new: true , runValidators:true}
     )
       .then(dbUserData => {

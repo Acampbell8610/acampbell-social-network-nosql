@@ -1,6 +1,14 @@
 const {Schema, model} = require('mongoose');
 
+const FriendsSchema = new Schema({
 
+    username:{
+        type: 'string',
+        unique: true,
+        required: true,
+        trim: true,
+    }
+})
 const UserSchema = new Schema({
     username: {
         type: 'string',
