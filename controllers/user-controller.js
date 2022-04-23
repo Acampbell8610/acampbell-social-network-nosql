@@ -58,7 +58,7 @@ updateUser({ params, body }, res) {
       .catch(err => res.status(400).json(err));
   },
     // delete user
-deleteuser({ params }, res) {
+deleteUser({ params }, res) {
     User.findOneAndDelete({ _id: params.id })
       .then(dbUserData => {
         if (!dbUserData) {
